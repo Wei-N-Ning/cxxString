@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <cassert>
@@ -17,8 +18,17 @@ void right_adjustified() {
     assert(string("....4123") == ss.str());
 }
 
+// the default behavior of io manipulator affects the immediate output
+void partially_adjustified() {
+    stringstream ss;
+    ss << right << setfill(' ') << setw(3) << 98;
+    ss << " # " << "text";
+    assert(string(" 98 # text") == ss.str());
+}
+
 int main() {
     left_adjustified();
     right_adjustified();
+    partially_adjustified();
     return 0;
 }
