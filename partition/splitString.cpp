@@ -2,6 +2,14 @@
 // Created by wein on 6/8/18.
 //
 
+// Summary:
+// this is a basic performance comparison between boost::split and c
+// strstr();
+// the later wins
+// since boost split is not ported to C++ standard library, I may need
+// to use getline:
+// https://stackoverflow.com/questions/5167625/splitting-a-c-stdstring-using-tokens-e-g
+
 #include <boost/algorithm/string.hpp>
 
 #include <cassert>
