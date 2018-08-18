@@ -28,6 +28,13 @@ set_target_properties(cin_getline
     PROPERTIES
     CXX_STANDARD 14)
 
+add_executable(ostream_iterator ostream_iterator.cpp)
+set_target_properties(ostream_iterator
+    PROPERTIES
+    CXX_STANDARD 14)
+add_test(NAME "ostream_iterator::test"
+    COMMAND ostream_iterator)
+
 # source:
 # use ctest to execute test-driver (a bash script)
 # 1) how to retrieve target executable path:
