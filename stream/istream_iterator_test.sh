@@ -13,6 +13,7 @@
 # - identify EOF
 # - echo -e will enable interpretation of backslash escapes (therefore
 #   special symbols such as \t is interpreted correctly)
+# - note that when using heredoc, \t, \n is not interpreted
 
 CC=${CC-cc}
 CXX=${CXX-c++}
@@ -35,13 +36,21 @@ sutbin=
 buildSUT() {
     cat > ${TEMPDIR}/_.cpp << "EOF"
 #include <regex>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 
 using namespace std;
 
-int main() {
-    istream_iterator<string> iter(cin), end;
+int main(int argc, char** argv) {
+    istream_iterator<string> iter, end;
+    ifstream file;
+    if (argc == 2) {
+        file.open(argv[1]);
+        iter = istream_iterator<string>(file);
+    } else {
+        iter = istream_iterator<string>(cin);
+    }
     while (iter != end) {
         cout << ":" << *(iter++);
     }
@@ -53,10 +62,21 @@ EOF
 }
 
 runSUT() {
+    # use stdin
     echo -e "
 doom 1993\tdos
 doom 2    1994\ndos
 " | ${sutbin}
+    echo ""
+
+    # use a file
+    cat >${TEMPDIR}/text <<EOF
+doom 1993 dos
+doom 2    1994
+dos
+EOF
+    ${sutbin} ${TEMPDIR}/text
+    echo ""
 }
 
 setUp
