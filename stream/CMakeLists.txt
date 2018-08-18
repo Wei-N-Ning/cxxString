@@ -34,6 +34,10 @@ set_target_properties(istreambuf_iterator
 # https://stackoverflow.com/questions/25627336/integrate-bash-test-scripts-in-cmake
 # find_program (BASH_PROGRAM bash)
 #
+# 3) how to view the output from the test driver script
+# https://stackoverflow.com/questions/5709914/using-cmake-how-do-i-get-verbose-output-from-ctest
+# ctest --verbose
+#
 # //////// test scripts ////////
 if (BASH_PROGRAM)
     add_test(
