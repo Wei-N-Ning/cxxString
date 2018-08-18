@@ -25,7 +25,7 @@ void test_integer_to_string() {
     assert(0 == strcmp("90", n.c_str()));
 }
 
-int main(int argc, char **argv) {
+int main() {
     RunTinyTests();
     return 0;
 }

@@ -15,7 +15,7 @@ void test_nothing() {
     ;
 }
 
-int main(int argc, char **argv) {
+int main() {
     RunTinyTests();
     return 0;
 }

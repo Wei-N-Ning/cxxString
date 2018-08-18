@@ -40,8 +40,6 @@ void populateCString(const char *element, const char *delimiter, size_t count, c
 
 void test_boostSplit() {
     using StrVec = std::vector<std::string>;
-    using PStrVec = std::shared_ptr<StrVec>;
-    using PStr = std::shared_ptr<std::string>;
     auto text = std::make_shared<std::string>();
     auto values = std::make_shared<StrVec>();
     text->reserve(50000);
@@ -86,7 +84,7 @@ void test_strstr() {
     assert(10000 == count);  // this method excludes 0-length element (such as ::)
 }
 
-int main(int argc, char **argv) {
+int main() {
     RunTinyTests();
     return 0;
 }

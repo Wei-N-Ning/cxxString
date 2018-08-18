@@ -29,7 +29,7 @@ void test_base16_successful() {
 }
 
 
-int main(int argc, char **argv) {
+int main() {
     RunTinyTests();
     return 0;
 }

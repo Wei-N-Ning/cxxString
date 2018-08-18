@@ -41,7 +41,7 @@ void test_use_iterators() {
     ;
 }
 
-int main(int argc, char **argv) {
+int main() {
     RunTinyTests();
     return 0;
 }
