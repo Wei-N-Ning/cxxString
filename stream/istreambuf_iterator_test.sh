@@ -25,10 +25,6 @@
 # - recall Perl's "include newline" //s
 
 
-CC=${CC-cc}
-CXX=${CXX-c++}
-DBG=${DBG-lldb}
-
 set -e
 
 TEMPDIR=/tmp/sut
@@ -42,26 +38,7 @@ setUp() {
     mkdir -p ${TEMPDIR}
 }
 
-sutbin=
-buildSUT() {
-    cat > ${TEMPDIR}/_.cpp << "EOF"
-#include <regex>
-#include <iostream>
-#include <iterator>
-
-using namespace std;
-
-int main() {
-    istreambuf_iterator<char> iter(cin.rdbuf()), end;
-    while (iter != end) {
-        cout << *(iter++);
-    }
-    return 0;
-}
-EOF
-    ${CXX} -std=c++14 -o ${TEMPDIR}/_ ${TEMPDIR}/_.cpp
-    sutbin=${TEMPDIR}/_
-}
+sutbin=${1:?missing program}
 
 runSUT() {
     echo -e "-\n-
@@ -70,7 +47,6 @@ there is a cow 0x3e7
 }
 
 setUp
-buildSUT
 runSUT
 tearDown
 

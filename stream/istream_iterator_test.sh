@@ -15,10 +15,6 @@
 #   special symbols such as \t is interpreted correctly)
 # - note that when using heredoc, \t, \n is not interpreted
 
-CC=${CC-cc}
-CXX=${CXX-c++}
-DBG=${DBG-lldb}
-
 set -e
 
 TEMPDIR=/tmp/sut
@@ -32,34 +28,7 @@ setUp() {
     mkdir -p ${TEMPDIR}
 }
 
-sutbin=
-buildSUT() {
-    cat > ${TEMPDIR}/_.cpp << "EOF"
-#include <regex>
-#include <fstream>
-#include <iostream>
-#include <iterator>
-
-using namespace std;
-
-int main(int argc, char** argv) {
-    istream_iterator<string> iter, end;
-    ifstream file;
-    if (argc == 2) {
-        file.open(argv[1]);
-        iter = istream_iterator<string>(file);
-    } else {
-        iter = istream_iterator<string>(cin);
-    }
-    while (iter != end) {
-        cout << ":" << *(iter++);
-    }
-    return 0;
-}
-EOF
-    ${CXX} -std=c++14 -o ${TEMPDIR}/_ ${TEMPDIR}/_.cpp
-    sutbin=${TEMPDIR}/_
-}
+sutbin=${1:?missing program}
 
 runSUT() {
     # use stdin
@@ -80,6 +49,5 @@ EOF
 }
 
 setUp
-buildSUT
 runSUT
 tearDown
