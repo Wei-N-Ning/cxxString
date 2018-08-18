@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-CC=${CC-cc}
-CXX=${CXX-c++}
-DBG=${DBG-lldb}
-
 set -e
 
 TEMPDIR=/tmp/sut
@@ -16,3 +12,18 @@ setUp() {
     tearDown
     mkdir -p ${TEMPDIR}
 }
+
+sutbin=${1:?missing program}
+
+runSUT() {
+    ${sutbin} <<"EOF"
+there
+there "is"
+there is ${a} cow
+there is a cow 0x3e7
+EOF
+}
+
+setUp
+runSUT
+tearDown

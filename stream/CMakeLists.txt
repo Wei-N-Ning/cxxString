@@ -23,6 +23,11 @@ set_target_properties(istreambuf_iterator
     PROPERTIES
     CXX_STANDARD 14)
 
+add_executable(cin_getline cin_getline.cpp)
+set_target_properties(cin_getline
+    PROPERTIES
+    CXX_STANDARD 14)
+
 # source:
 # use ctest to execute test-driver (a bash script)
 # 1) how to retrieve target executable path:
@@ -50,4 +55,10 @@ if (BASH_PROGRAM)
         "istreambuf_iterator::test"
         COMMAND
         ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/istreambuf_iterator_test.sh $<TARGET_FILE:istreambuf_iterator>)
+    add_test(
+        NAME
+        "getline::stdin"
+        COMMAND
+        ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/cin_getline_test.sh $<TARGET_FILE:cin_getline>
+    )
 endif (BASH_PROGRAM)
