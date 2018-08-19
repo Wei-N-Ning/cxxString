@@ -15,3 +15,18 @@ incomplete type and cannot be defined
      TypeTester<StringView> tt;
                      ^
 EOF
+
+${sutbin} '(\w+)\((\w+)\)' << "EOF"
+# comment:
+[/]project(doom)
+[/]scene(e1)
+[/]shot(m1)
+
+# comment:
+[/]element(archvile)
+[/]product(motion)
+
+[/]version(101)
+[/]resource(apm)
+
+EOF

@@ -23,7 +23,7 @@ set_target_properties(capture_groups
 if (BASH_PROGRAM)
     add_test(
         NAME
-        "sregex-token-iterator::delimiter"
+        "regex::sregex-token-iterator::delimiter"
         COMMAND
         ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/sregex_token_iterator_test.sh $<TARGET_FILE:sregex_token_iterator>
     )
@@ -38,5 +38,11 @@ if (BASH_PROGRAM)
         "regex::sregex_iterator"
         COMMAND
         ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/regex_iterator_test.sh $<TARGET_FILE:regex_iterator>
+    )
+    add_test(
+        NAME
+        "regex::search::capture-groups"
+        COMMAND
+        ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/capture_groups_test.sh $<TARGET_FILE:capture_groups>
     )
 endif (BASH_PROGRAM)
