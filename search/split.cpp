@@ -1,5 +1,7 @@
 
-// NOTE: this is equivalent to python's left split
+// NOTE: this is to split at the FIRST occasion of <cstr>
+// to make it behaves the same as the Python version I 
+// need to change the return type to vector
 
 #include <string>
 #include <utility>
