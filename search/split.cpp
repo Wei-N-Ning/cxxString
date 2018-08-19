@@ -1,4 +1,6 @@
 
+// NOTE: this is equivalent to python's left split
+
 #include <string>
 #include <utility>
 #include <cassert>
