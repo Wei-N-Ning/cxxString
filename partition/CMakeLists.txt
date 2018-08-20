@@ -22,3 +22,13 @@ set_target_properties(substring
     CXX_STANDARD 14)
 add_test(NAME "partition::std-substring" COMMAND substring)
 
+add_tinytest_executable(string_find_split find_split.cpp)
+set_target_properties(string_find_split
+    PROPERTIES
+    CXX_STANDARD 14)
+add_test(
+    NAME
+    "partition::find-split"
+    COMMAND
+    string_find_split
+)
