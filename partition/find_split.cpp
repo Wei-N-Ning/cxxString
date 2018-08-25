@@ -9,6 +9,8 @@
 #include <vector>
 #include <cassert>
 
+// see also: cExamples/tests/string/strstr.c 
+
 template<typename T>
 std::vector<T> find_split(const T& haystack, const T& needle) {
     std::vector<T> elements;
