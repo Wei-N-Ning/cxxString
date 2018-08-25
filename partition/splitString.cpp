@@ -9,6 +9,9 @@
 // since boost split is not ported to C++ standard library, I may need
 // to use getline:
 // https://stackoverflow.com/questions/5167625/splitting-a-c-stdstring-using-tokens-e-g
+// UPDATE:
+// see find_split.cpp for a pure standard-library implementation using 
+// iterators
 
 #include <boost/algorithm/string.hpp>
 
