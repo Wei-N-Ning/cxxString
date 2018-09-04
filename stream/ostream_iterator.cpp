@@ -7,20 +7,22 @@
 // The problem is that the delimiter in the ostream_iterator constructor
 // call is better described as a suffix than a delimiter.
 
+// NOTE 1
 // while using universal reference, how can one use T::value_type as
-// a parameter now that T will also be a reference?
+// a parameter now that T will always be a reference?
 // see:
 // https://stackoverflow.com/questions/35407243/using-a-class-template-in-a-function-template-with-universal-reference-parameter
 // key: std::remove_reference<T>::type
 
-// if the value_type of the container is of a user-defined class, there
-// must an overloaded ostream operator<< for this type
+// NOTE 2
+// if the value_type of the container is a user-defined class, there
+// must an overloaded ostream operator<< for this type (required by 
+// the ostream object wrapped by the iterator)
 
 #include <algorithm>
 #include <vector>
 #include <iterator>
 #include <iostream>
-#include <type_traits>
 
 template <class T>
 void prt(T &&container, const char *delimit, const char *open__ = nullptr,
@@ -52,10 +54,12 @@ void test_empty() {
 void test_lvalue_ref() {
     auto a = std::vector<double>{1.010, 2.13, 142.12};
     prt(a, ", ");
+    std::cout << std::endl;
 }
 
 void test_rvalaue_ref() {
     prt(std::vector<double>{1.010, 2.13, 142.12}, ", ");
+    std::cout << std::endl;
 }
 
 namespace CustomType {
@@ -75,6 +79,7 @@ std::ostream& operator<< (std::ostream& os, const A& a) {
 
 void test_custom_type() {
     prt(std::vector<CustomType::A>(10), "");
+    std::cout << std::endl;
 }
 
 
