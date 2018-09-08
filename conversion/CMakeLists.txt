@@ -10,3 +10,14 @@ set_target_properties(tointeger
     PROPERTIES
     CXX_STANDARD 14)
 add_test(NAME "conversion::tointeger" COMMAND tointeger)
+
+add_tinytest_executable(from_numeric from_numeric.cpp)
+set_target_properties(from_numeric
+    PROPERTIES
+    CXX_STANDARD 14)
+add_test(
+    NAME
+    "conversion::from-numeric-values"
+    COMMAND
+    from_numeric
+)
