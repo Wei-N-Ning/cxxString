@@ -35,6 +35,13 @@ set_target_properties(ostream_iterator
 add_test(NAME "ostream_iterator::test"
     COMMAND ostream_iterator)
 
+add_executable(overloading overloading.cpp)
+set_target_properties(overloading
+    PROPERTIES
+    CXX_STANDARD 14)
+add_test(NAME "ostream-operator::overload-name-lookup"
+    COMMAND overloading)
+
 # source:
 # use ctest to execute test-driver (a bash script)
 # 1) how to retrieve target executable path:
