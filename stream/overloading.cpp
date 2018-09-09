@@ -4,10 +4,13 @@
 // https://stackoverflow.com/questions/476272/how-to-properly-overload-the-operator-for-an-ostream
 
 namespace FooNS {
-    struct Foo {};
+    struct Foo {
+        int m_value;
+    };
 
     std::ostream& operator<< (std::ostream& os, const Foo& foo) {
-        os << "Inside namespace{Foo}";
+        os << "Inside namespace{Foo}" << std::endl;
+        os << foo.m_value << std::endl;
         return os;
     }
 } // namespace Foo
@@ -20,7 +23,7 @@ int main() {
     // 1) use a namespace to encapsulate the class
     // 2) define the overloaded stream operator in that namespace
 
-    FooNS::Foo foo;
+    FooNS::Foo foo{10};
     std::cout << foo << std::endl;;
     return 0;
 }

@@ -42,6 +42,19 @@ set_target_properties(overloading
 add_test(NAME "ostream-operator::overload-name-lookup"
     COMMAND overloading)
 
+add_executable(echo_program echo_program.cc)
+set_target_properties(echo_program
+    PROPERTIES
+    CXX_STANDARD 14)
+
+add_tinytest_executable(read_column_separated_text
+    read_column_separated_text.cpp)
+set_target_properties(read_column_separated_text
+    PROPERTIES
+    CXX_STANDARD 14)
+add_test(NAME "ifstream::read-column-separated-text"
+    COMMAND read_column_separated_text)
+
 # source:
 # use ctest to execute test-driver (a bash script)
 # 1) how to retrieve target executable path:
@@ -74,5 +87,10 @@ if (BASH_PROGRAM)
         "getline::stdin"
         COMMAND
         ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/cin_getline_test.sh $<TARGET_FILE:cin_getline>
+    )
+    add_test(
+        NAME "iostream::echo-program"
+        COMMAND
+        ${BASH_PROGRAM} ${CMAKE_CURRENT_SOURCE_DIR}/echo_program_test.sh $<TARGET_FILE:echo_program>
     )
 endif (BASH_PROGRAM)
