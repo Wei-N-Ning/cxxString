@@ -15,10 +15,12 @@ void test_sprintf_caveat() {
 
     // given a char array of length 5
     // conversion is successful only for:
-    // 1, 10, 100, 1000, 10000
-    int value = 10000;
-    assert(5 == std::sprintf(smallBuf, "%d", value));
-    assert(0 == std::strcmp("10000", smallBuf));
+    // 1, 10, 100, 1000,
+    // ///////// remember a legit C-string needs to be null-
+    // terminating /////////
+    int value = 1000;
+    assert(4 == std::sprintf(smallBuf, "%d", value));
+    assert(0 == std::strcmp("1000", smallBuf));
 
     // P25
     // (increase the number of digits) we will start scribbling past
