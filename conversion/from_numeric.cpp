@@ -39,6 +39,11 @@ void test_stringstream() {
 
 }
 
+void test_from_int_to_string() {
+    std::string s = std::to_string(1337);
+    assert(s == std::string("1337"));
+}
+
 int main() {
     RunTinyTests();
     return 0;

@@ -21,3 +21,14 @@ add_test(
     COMMAND
     from_numeric
 )
+
+add_tinytest_executable(from_time from_time.cpp)
+set_target_properties(from_time
+    PROPERTIES
+    CXX_STANDARD 14)
+add_test(
+    NAME
+    "conversion::from-time"
+    COMMAND
+    from_time)
+
