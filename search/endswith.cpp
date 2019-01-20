@@ -1,7 +1,9 @@
+//$(which true); dst=/var/tmp/sut; out=${dst}/$0.bin; mkdir -p ${dst}; c++ -std=c++14 -Wall -o "${out}" 1>&2 "$0" && "${out}" "$@"; exit $?
 
 #include <string>
 #include <cstring>
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
@@ -17,5 +19,7 @@ int main() {
     string text("0x123 someFunc at tst/sometest.cc");
     assert(endswith(text, ".cc"));
     assert(! endswith(text, ".cpp"));
+    
+    cout << "+ DONE" << endl;
     return 0;
 }
