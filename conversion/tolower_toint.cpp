@@ -3,9 +3,9 @@
 //
 
 #include <algorithm>
-#include <string>
 #include <cassert>
 #include <cstring>
+#include <string>
 #include <vector>
 
 using std::string;
@@ -14,18 +14,18 @@ using std::vector;
 void RunTinyTests();
 
 void test_toLower() {
-    string actual;
-    string sut{" ThereIsA cow@231\02"};
-    std::transform(sut.begin(), sut.end(), std::back_inserter(actual), ::tolower);
-    assert(0 == strcmp(" thereisa cow@231\02", actual.c_str()));
+  string actual;
+  string sut{" ThereIsA cow@231\02"};
+  std::transform(sut.begin(), sut.end(), std::back_inserter(actual), ::tolower);
+  assert(0 == strcmp(" thereisa cow@231\02", actual.c_str()));
 }
 
 void test_integer_to_string() {
-    auto n = std::to_string(90);
-    assert(0 == strcmp("90", n.c_str()));
+  auto n = std::to_string(90);
+  assert(0 == strcmp("90", n.c_str()));
 }
 
 int main() {
-    RunTinyTests();
-    return 0;
+  RunTinyTests();
+  return 0;
 }
