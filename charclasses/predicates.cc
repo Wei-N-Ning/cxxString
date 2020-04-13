@@ -5,13 +5,10 @@
 // comparing c++ isdigit with std::ctype::do_is
 // L"..." and L'x' is wide string literal, see:
 // https://en.cppreference.com/w/cpp/language/string_literal
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
-#include "predicates.hh"
 #include <iostream>
-#include <locale>
-#include <sstream>
-
-void RunTinyTests();
 
 struct csv_whitespace : std::ctype<wchar_t> {
   bool do_is(mask m, char_type c) const override {
@@ -25,7 +22,7 @@ struct csv_whitespace : std::ctype<wchar_t> {
   }
 };
 
-void test_parse_csv() {
+TEST_CASE("parse csv") {
   std::wstring in = L"Column 1,Column 2,Column 3\n123,456,789";
   std::wstring token;
 
@@ -42,9 +39,4 @@ void test_parse_csv() {
   while (s2 >> token) {
     std::wcout << "  " << token << '\n';
   }
-}
-
-int main() {
-  RunTinyTests();
-  return 0;
 }

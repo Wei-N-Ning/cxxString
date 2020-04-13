@@ -1,5 +1,7 @@
 
 // exceptional Chapter 2, P25
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <iomanip>
 #include <sstream>
@@ -8,9 +10,7 @@
 #include <cstring>
 #include <cassert>
 
-void RunTinyTests();
-
-void test_sprintf_caveat() {
+TEST_CASE("sprintf caveat") {
     char smallBuf[5] = {0, 0, 0, 0, 0};
 
     // given a char array of length 5
@@ -29,7 +29,7 @@ void test_sprintf_caveat() {
     // immediate;y after smallBuf in memory
 }
 
-void test_stringstream() {
+TEST_CASE("string-stream") {
     std::stringstream ss;
     ss << std::setw(4) << 1000000;
     assert(std::string("1000000") == ss.str());
@@ -39,12 +39,7 @@ void test_stringstream() {
 
 }
 
-void test_from_int_to_string() {
+TEST_CASE("from int to string") {
     std::string s = std::to_string(1337);
     assert(s == std::string("1337"));
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

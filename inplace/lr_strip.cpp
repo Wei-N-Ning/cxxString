@@ -1,3 +1,5 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <sstream>
 #include <vector>
@@ -8,9 +10,7 @@
 // see also:
 // http://www.cplusplus.com/reference/string/string/erase/
 
-void RunTinyTests();
-
-void test_lstrip() {
+TEST_CASE("left strip") {
     auto f = [](std::string& o_str) {
         o_str.erase(0, o_str.find_first_not_of("\t\n\v\f\r "));
     };
@@ -33,7 +33,7 @@ ther
     assert(expected == results);
 }
 
-void test_rstrip() {
+TEST_CASE("right strip") {
     auto f = [](std::string& o_str) {
         o_str.erase(o_str.find_last_not_of("\t\n\v\f\r ") + 1);
     };
@@ -57,7 +57,7 @@ ther
     assert(expected == results);
 }
 
-void test_strip() {
+TEST_CASE("strip") {
     auto f = [](std::string& o_str) {
         o_str.erase(0, o_str.find_first_not_of("\t\n\v\f\r "));
         o_str.erase(o_str.find_last_not_of("\t\n\v\f\r ") + 1);
@@ -79,9 +79,4 @@ void test_strip() {
     
     std::vector<std::string> expected{"", "idd qd", "ther", "2 1"};
     assert(expected == results);
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

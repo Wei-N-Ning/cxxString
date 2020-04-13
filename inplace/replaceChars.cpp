@@ -10,6 +10,8 @@
 
 // source:
 // see stackoverflow about std::replace() in STL <algorithms>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <algorithm>
 #include <string>
@@ -17,9 +19,7 @@
 #include <cassert>
 #include <cstring>
 
-void RunTinyTests();
-
-void test_replace_char_all_places() {
+TEST_CASE("replace all chars") {
     using namespace std;
 
     string haystack{"iddqd/idkfa idnoclip_idfa"};
@@ -30,10 +30,5 @@ void test_replace_char_all_places() {
     
     assert(expected == haystack); 
     assert(0 == strcmp(expected.c_str(), haystack.c_str()));
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
 }
 

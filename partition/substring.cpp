@@ -1,24 +1,17 @@
 //
 // Created by wein on 8/10/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <string>
 #include <cassert>
 
-void RunTinyTests();
-
-static std::string s_sut;
-
-void setUp() {
+TEST_CASE("out of range") {
+    std::string s_sut;
     s_sut.clear();
     s_sut += "thereis ac ow 13 37";
-}
 
-void tearDown() {
-    s_sut.clear();
-}
-
-void test_out_of_range() {
     // throw std::out_of_range
     // s_sut.substr(1000, 2000);
 
@@ -35,13 +28,7 @@ void test_out_of_range() {
     // end < start
     // throws std::length_error
     // std::string(s_sut.cbegin() + 6, s_sut.cend() - 14);
-}
 
-void test_use_iterators() {
-    ;
-}
 
-int main() {
-    RunTinyTests();
-    return 0;
+    s_sut.clear();
 }

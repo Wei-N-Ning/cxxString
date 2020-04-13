@@ -9,13 +9,13 @@
 // see also strstr.c in cexamples project
 // see also replace single character
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <string>
 #include <cassert>
 
-void RunTinyTests();
-
-void replaceAll(const std::string& i_needle,  
+void replaceAll(const std::string& i_needle,
                 const std::string& i_newNeedle,
                 std::string& o_haystack) {
     using namespace std;
@@ -30,7 +30,7 @@ void replaceAll(const std::string& i_needle,
 
 }
 
-void test_replace_substr_all_places() {
+TEST_CASE("replace all substrs") {
     using namespace std;
 
     string haystack{"iddqd_idfa,idkfa/idnoclip"};
@@ -40,9 +40,4 @@ void test_replace_substr_all_places() {
     replaceAll(needle, newNeedle, haystack);
     string expected{"E.A.dqd_E.A.fa,E.A.kfa/E.A.noclip"};
     assert(expected == haystack);
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

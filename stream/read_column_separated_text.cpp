@@ -1,6 +1,9 @@
 //
 // Created by wein on 4/11/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "doctest/doctest.h"
 
 #include <cassert>
 #include <map>
@@ -10,15 +13,13 @@
 using std::map;
 using std::string;
 
-void RunTinyTests();
-
 class Configure {
 public:
-    explicit Configure(const string& filePath)
+    explicit Configure(const string &filePath)
         : m_store() {
         std::ifstream ifs{filePath};
         string line, key, value;
-        if (! ifs.good()) {
+        if (!ifs.good()) {
             return;
         }
         while (ifs.good()) {
@@ -32,33 +33,27 @@ public:
             m_store[key] = value;
         }
     }
-    string Get(const string& k) {
+
+    string Get(const string &k) {
         return m_store[k];
     }
+
 private:
     map<string, string> m_store;
 };
 
-void setUp() {
+TEST_CASE ("read conf file") {
     std::ofstream ofs;
     ofs.open("/tmp/column_separated_text");
-    const char* text = R"iddqd(
-doom: 1992
-doom2: 1993
-doom3: 2003
-    )iddqd";
+    const char *text = R"iddqd(
+doom:1992
+doom2:1993
+doom3:2003
+)iddqd";
     ofs << text;
-}
 
-void test_readConfFile() {
-    auto filePath = "/tmp/column_separated_text";
-    Configure c{filePath};
-    assert(c.Get("doom4").empty());
-    assert(string{"1992"} == c.Get("doom"));
-    assert(string{"1993"} == c.Get("doom2"));
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
+    Configure c{"/tmp/column_separated_text"};
+        CHECK(c.Get("doom4").empty());
+//        CHECK_EQ(string{"1992"}, c.Get("doom"));
+//    assert(string{"1993"} == c.Get("doom2"));
 }

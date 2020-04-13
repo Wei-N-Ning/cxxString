@@ -1,5 +1,6 @@
 
-find_package(Boost)
+set(Boost_USE_STATIC_LIBS on)
+find_package(Boost REQUIRED)
 
 # source:
 # https://cmake.org/cmake/help/v3.0/module/FindBoost.html
@@ -8,24 +9,17 @@ find_package(Boost)
 #  include_directories(${Boost_INCLUDE_DIRS})
 #  add_executable(foo foo.cc)
 #endif()
-if(Boost_FOUND)
-    add_tinytest_executable(boostSplit splitString.cpp)
-    set_target_properties(boostSplit
-        PROPERTIES
-        CXX_STANDARD 14)
-    add_test(NAME "partition::boost-string-split-perf" COMMAND boostSplit)
-endif()
+add_executable(boostSplit splitString.cpp)
+target_link_libraries(boostSplit doctest)
+target_include_directories(boostSplit PRIVATE ${Boost_INCLUDE_DIRS})
+add_test(NAME "partition::boost-string-split-perf" COMMAND boostSplit)
 
-add_tinytest_executable(substring substring.cpp)
-set_target_properties(substring
-    PROPERTIES
-    CXX_STANDARD 14)
+add_executable(substring substring.cpp)
+target_link_libraries(substring doctest)
 add_test(NAME "partition::std-substring" COMMAND substring)
 
-add_tinytest_executable(string_find_split find_split.cpp)
-set_target_properties(string_find_split
-    PROPERTIES
-    CXX_STANDARD 14)
+add_executable(string_find_split find_split.cpp)
+target_link_libraries(string_find_split doctest)
 add_test(
     NAME
     "partition::find-split"

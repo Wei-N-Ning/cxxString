@@ -12,6 +12,8 @@
 // UPDATE:
 // see find_split.cpp for a pure standard-library implementation using 
 // iterators
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -21,8 +23,6 @@
 #include <string>
 #include <iostream>
 #include <memory>
-
-void RunTinyTests();
 
 void populateString(const std::string& element, const std::string& delimiter, size_t count, std::string& o_str) {
     while (count--) {
@@ -41,7 +41,7 @@ void populateCString(const char *element, const char *delimiter, size_t count, c
 }
 
 
-void test_boostSplit() {
+TEST_CASE("boost split") {
     using StrVec = std::vector<std::string>;
     auto text = std::make_shared<std::string>();
     auto values = std::make_shared<StrVec>();
@@ -60,7 +60,7 @@ void test_boostSplit() {
     assert(10001 == values->size());
 }
 
-void test_strstr() {
+TEST_CASE("strstr()") {
     auto cstr = (char *)malloc(150000);
     int count = 0;
     populateCString("thereisacow", ":", 10000, cstr);
@@ -85,9 +85,4 @@ void test_strstr() {
     free(cstr);
 
     assert(10000 == count);  // this method excludes 0-length element (such as ::)
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

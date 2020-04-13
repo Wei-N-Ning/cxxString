@@ -1,17 +1,17 @@
 //
 // Created by wein on 8/9/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <string>
 #include <cassert>
 
-void RunTinyTests();
-
-void test_base10_successful() {
+TEST_CASE("base10 conversion") {
     assert(1337 == std::stoi("1337"));
 }
 
-void test_base10_unsuccessful() {
+TEST_CASE("base10 conversion failed") {
     // .48 is truncated; note stoi() returns the number of characters
     // successfully converted to the caller via an output parameter
     size_t numChars = 0;
@@ -22,14 +22,8 @@ void test_base10_unsuccessful() {
     // assert(0 == std::stoi("a13.48"));
 }
 
-void test_base16_successful() {
+TEST_CASE("base16 conv") {
     assert(0x3e7 == std::stoi("0x3e7", nullptr, 16));
     assert(0x3e7 == std::stoi("0003e7", nullptr, 16));
     assert(0x3e7 == std::stoi("3e7", nullptr, 16));
-}
-
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

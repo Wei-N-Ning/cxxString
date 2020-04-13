@@ -1,6 +1,8 @@
 //
 // Created by wein on 4/11/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <algorithm>
 #include <cassert>
@@ -11,21 +13,14 @@
 using std::string;
 using std::vector;
 
-void RunTinyTests();
-
-void test_toLower() {
+TEST_CASE("to lower") {
   string actual;
   string sut{" ThereIsA cow@231\02"};
   std::transform(sut.begin(), sut.end(), std::back_inserter(actual), ::tolower);
   assert(0 == strcmp(" thereisa cow@231\02", actual.c_str()));
 }
 
-void test_integer_to_string() {
+TEST_CASE("int to string") {
   auto n = std::to_string(90);
   assert(0 == strcmp("90", n.c_str()));
-}
-
-int main() {
-  RunTinyTests();
-  return 0;
 }

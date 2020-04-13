@@ -1,6 +1,8 @@
 //
 // Created by wein on 20/08/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <algorithm>
 #include <iterator>
@@ -52,9 +54,7 @@ inline void _assert(const std::vector<std::string>& elems,
     }
 }
 
-void RunTinyTests();
-
-void test_needle_is_one_character() {
+TEST_CASE("needle is one char") {
     std::vector<std::string> elems;
 
     elems = find_split(
@@ -73,7 +73,7 @@ void test_needle_is_one_character() {
     _assert(elems, {"doom", "doom2", "dune2"});
 }
 
-void test_needle_has_more_characters() {
+TEST_CASE("needle has multiple chars") {
     std::vector<std::string> elems;
 
     elems = find_split(
@@ -92,7 +92,7 @@ void test_needle_has_more_characters() {
     _assert(elems, {"doom", "doom2", "=dune2"});
 }
 
-void test_needle_not_found() {
+TEST_CASE("needle not found") {
     std::vector<std::string> elems;
     elems = find_split(
         std::string("//doom///doom2"),
@@ -105,10 +105,4 @@ void test_needle_not_found() {
         std::string("//doom///doom2"),
         std::string());
     assert(elems.empty());
-}
-
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

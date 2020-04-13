@@ -1,13 +1,18 @@
-cmake_minimum_required(VERSION 3.8)
-project(C++String)
+cmake_minimum_required(VERSION 3.10)
+project(C++String LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/vendor/boost-1.72.0)
+
+add_subdirectory(vendor/doctest)
 enable_testing()
 
 # source:
 # http://voices.canonical.com/jussi.pakkanen/2013/03/26/a-list-of-common-cmake-antipatterns/
 # the user might set values with the ccmake configuration tool.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -Wextra")
-include(cmake/tinyCUnit.cmake)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -Wextra")
 
 # source:
 # how to integrate bash script in ctest

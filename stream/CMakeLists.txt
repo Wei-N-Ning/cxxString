@@ -1,57 +1,33 @@
 
 add_executable(iomanipHexFormat strstream_hexformat.cpp)
-set_target_properties(iomanipHexFormat
-    PROPERTIES
-    CXX_STANDARD 14)
 add_test(NAME "stringstream::iomanip::hex-format"
     COMMAND iomanipHexFormat)
 
 add_executable(iomanipAdjustify strstream_padding.cpp)
-set_target_properties(iomanipAdjustify
-    PROPERTIES
-    CXX_STANDARD 14)
 add_test(NAME "stringstream::iomanip::adjustify"
     COMMAND iomanipAdjustify)
 
 add_executable(istream_iterator istream_iterator.cpp)
-set_target_properties(istream_iterator
-    PROPERTIES
-    CXX_STANDARD 14)
 
 add_executable(istreambuf_iterator istreambuf_iterator.cpp)
-set_target_properties(istreambuf_iterator
-    PROPERTIES
-    CXX_STANDARD 14)
 
 add_executable(cin_getline cin_getline.cpp)
-set_target_properties(cin_getline
-    PROPERTIES
-    CXX_STANDARD 14)
 
 add_executable(ostream_iterator ostream_iterator.cpp)
-set_target_properties(ostream_iterator
-    PROPERTIES
-    CXX_STANDARD 14)
+target_link_libraries(ostream_iterator doctest)
 add_test(NAME "ostream_iterator::test"
     COMMAND ostream_iterator)
 
 add_executable(overloading overloading.cpp)
-set_target_properties(overloading
-    PROPERTIES
-    CXX_STANDARD 14)
+target_link_libraries(overloading doctest)
 add_test(NAME "ostream-operator::overload-name-lookup"
     COMMAND overloading)
 
 add_executable(echo_program echo_program.cc)
-set_target_properties(echo_program
-    PROPERTIES
-    CXX_STANDARD 14)
 
-add_tinytest_executable(read_column_separated_text
+add_executable(read_column_separated_text
     read_column_separated_text.cpp)
-set_target_properties(read_column_separated_text
-    PROPERTIES
-    CXX_STANDARD 14)
+target_link_libraries(read_column_separated_text doctest)
 add_test(NAME "ifstream::read-column-separated-text"
     COMMAND read_column_separated_text)
 
