@@ -1,23 +1,15 @@
 
 add_executable(sregex_token_iterator sregex_token_iterator.cpp)
-set_target_properties(sregex_token_iterator
-    PROPERTIES
-    CXX_STANDARD 14)
 
 add_executable(option_modifiers option_modifiers.cpp)
-set_target_properties(option_modifiers
-    PROPERTIES
-    CXX_STANDARD 14)
 
 add_executable(regex_iterator regex_iterator.cpp)
-set_target_properties(regex_iterator
-    PROPERTIES
-    CXX_STANDARD 14)
 
 add_executable(capture_groups capture_groups.cpp)
-set_target_properties(capture_groups
-    PROPERTIES
-    CXX_STANDARD 14)
+
+add_executable(varlength_lookbehind varlength_lookbehind.cpp)
+target_include_directories(varlength_lookbehind PUBLIC ${Boost_INCLUDE_DIRS})
+target_link_libraries(varlength_lookbehind doctest ${Boost_LIBRARIES})
 
 # //////// test scripts ////////
 if (BASH_PROGRAM)
