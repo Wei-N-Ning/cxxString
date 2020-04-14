@@ -4,6 +4,7 @@ project(C++String LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(Boost_USE_STATIC_LIBS on)
 set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/vendor/boost-1.72.0)
 
 add_subdirectory(vendor/doctest)

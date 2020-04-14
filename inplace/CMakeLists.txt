@@ -8,3 +8,7 @@ add_executable(replaceChars replaceChars.cpp)
 target_link_libraries(replaceChars doctest)
 add_test(NAME "inplace-editing::replace-chars"
     COMMAND replaceChars)
+
+add_executable(capitalize capitalize.cpp)
+target_link_libraries(capitalize doctest)
+add_test(NAME "inplace-editing::capitalize" COMMAND capitalize)
