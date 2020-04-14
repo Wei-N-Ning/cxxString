@@ -1,4 +1,7 @@
 //$(which true); dst=/var/tmp/sut; out=${dst}/$0.bin; mkdir -p ${dst}; c++ -std=c++14 -Wall -o "${out}" 1>&2 "$0" && "${out}" "$@"; exit $?
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "doctest/doctest.h"
 
 #include <string>
 #include <cstring>
@@ -7,7 +10,7 @@
 
 using namespace std;
 
-bool endswith(const string& text, const char* cstr) {
+bool endswith(const string &text, const char *cstr) {
     size_t found = text.rfind(cstr);
     if (found == string::npos) {
         return false;
@@ -15,11 +18,10 @@ bool endswith(const string& text, const char* cstr) {
     return text.size() - found == strlen(cstr);
 }
 
-int main() {
+TEST_CASE ("endswith") {
     string text("0x123 someFunc at tst/sometest.cc");
     assert(endswith(text, ".cc"));
-    assert(! endswith(text, ".cpp"));
-    
+    assert(!endswith(text, ".cpp"));
+
     cout << "+ DONE" << endl;
-    return 0;
 }

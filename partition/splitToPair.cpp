@@ -2,6 +2,9 @@
 // NOTE: this is to split at the FIRST occasion of <cstr>
 // to make it behaves the same as the Python version I 
 // need to change the return type to vector
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "doctest/doctest.h"
 
 #include <string>
 #include <utility>
@@ -10,7 +13,7 @@
 
 using namespace std;
 
-pair<string, string> split(const std::string& text, const char* cstr) {
+pair<string, string> split(const std::string &text, const char *cstr) {
     size_t found = text.find(cstr);
     if (found == string::npos) {
         return {"", ""};
@@ -21,9 +24,9 @@ pair<string, string> split(const std::string& text, const char* cstr) {
     };
 }
 
-int main() {
+TEST_CASE ("split string to pair") {
     pair<string, string> result;
-    
+
     // split in the middle
     result = split("idkfaiddqdidnoclip", "iddqd");
     assert(result.first == string("idkfa"));
@@ -33,17 +36,15 @@ int main() {
     result = split("idkfaiddqdidnoclip", "id");
     assert(result.first.empty());
     assert(result.second == string("kfaiddqdidnoclip"));
-    
+
     // split at the end
     result = split("idkfaiddqdidnoclip", "noclip");
     assert(result.first == string("idkfaiddqdid"));
     assert(result.second.empty());
-    
+
     // fail to split
     result = split("idkfaiddqdidnoclip", "idfa");
     assert(result.first.empty());
     assert(result.second.empty());
-
-    return 0;
 }
 

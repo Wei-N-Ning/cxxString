@@ -23,3 +23,7 @@ add_test(
     COMMAND
     string_find_split
 )
+
+add_executable(splitToPair splitToPair.cpp)
+target_link_libraries(splitToPair doctest)
+add_test(NAME "partition:split-to-pair" COMMAND splitToPair)
