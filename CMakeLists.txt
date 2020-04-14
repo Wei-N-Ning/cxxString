@@ -22,6 +22,7 @@ enable_testing()
 # https://stackoverflow.com/questions/25627336/integrate-bash-test-scripts-in-cmake
 find_program(BASH_PROGRAM bash)
 
+add_subdirectory(aggregate)
 add_subdirectory(addition)
 add_subdirectory(conversion)
 add_subdirectory(creation)
