@@ -48,6 +48,12 @@ TEST_CASE ("from int to string") {
 }
 
 // source: modern c++ challenge P/51
+// see also tointeger.cpp for the conversion from vector to hexstring
+// NOTES:
+// use std::transform() (FP-map) to produce the intermediate unsigned chars
+// reverse and pad 0 to make the total length of the intermediate vector
+// a even number - simplify the last iteration
+// the last iteration uses reverse iter - see comments
 std::vector<unsigned char> hexstring_to_vec(const std::string &s) {
     using namespace std;
 
@@ -70,7 +76,8 @@ std::vector<unsigned char> hexstring_to_vec(const std::string &s) {
     }
     return result;
 };
-TEST_CASE ("string to 8-bit ints") {
+
+TEST_CASE ("hexstring to 8-bit ints") {
     using namespace std;
     CHECK_EQ(vector<unsigned char>{0x0B, 0xAD}, hexstring_to_vec("BAD"));
     CHECK_EQ(vector<unsigned char>{0xBA, 0xAD}, hexstring_to_vec("BAAD"));
