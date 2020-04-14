@@ -1,7 +1,4 @@
 
-set(Boost_USE_STATIC_LIBS on)
-find_package(Boost REQUIRED)
-
 # source:
 # https://cmake.org/cmake/help/v3.0/module/FindBoost.html
 # find_package(Boost 1.36.0)

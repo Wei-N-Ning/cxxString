@@ -10,5 +10,6 @@ add_test(NAME "inplace-editing::replace-chars"
     COMMAND replaceChars)
 
 add_executable(capitalize capitalize.cpp)
-target_link_libraries(capitalize doctest)
+target_link_libraries(capitalize doctest ${Boost_LIBRARIES})
+target_include_directories(capitalize PUBLIC ${Boost_INCLUDE_DIRS})
 add_test(NAME "inplace-editing::capitalize" COMMAND capitalize)
