@@ -10,7 +10,6 @@ set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/vendor/boost-1.72.0)
 find_package(Boost 1.72.0 REQUIRED COMPONENTS regex)
 
 add_subdirectory(vendor/doctest)
-add_subdirectory(vendor/cpp-netlib)
 enable_testing()
 
 # source:
@@ -27,6 +26,7 @@ add_subdirectory(aggregate)
 add_subdirectory(addition)
 add_subdirectory(conversion)
 add_subdirectory(creation)
+add_subdirectory(iteration)
 add_subdirectory(inplace)
 add_subdirectory(search)
 add_subdirectory(literals)
