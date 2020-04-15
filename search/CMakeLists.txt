@@ -9,4 +9,3 @@ add_test(NAME "search::find-substr" COMMAND find_substr)
 add_executable(palindrome palindrome.cpp)
 target_link_libraries(palindrome doctest)
 add_test(NAME "search::palindrome" COMMAND palindrome)
-
