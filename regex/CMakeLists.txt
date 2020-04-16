@@ -14,7 +14,7 @@ target_link_libraries(varlength_lookbehind doctest ${Boost_LIBRARIES})
 add_executable(plate_number_extraction plate_number_extraction.cpp)
 target_link_libraries(plate_number_extraction doctest ${Boost_LIBRARIES})
 target_include_directories(plate_number_extraction PUBLIC ${Boost_INCLUDE_DIRS})
-add_test(NAME "search::plate number extraction" COMMAND plate_number_extraction)
+add_test(NAME "search::plate-number-extraction" COMMAND plate_number_extraction)
 
 
 # //////// test scripts ////////
