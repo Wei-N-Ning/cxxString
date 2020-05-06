@@ -35,4 +35,4 @@ add_subdirectory(regex)
 add_subdirectory(stream)
 add_subdirectory(charclasses)
 add_subdirectory(strip)
-
+add_subdirectory(parsing)
