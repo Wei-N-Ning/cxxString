@@ -1,6 +1,8 @@
 # C++ String Manipulation
 
-## Working with Boost in CMake
+## C++17 string view and other new features
+
+## DevOps Note: Working with Boost in CMake
 
 aka. can boost not suck?
 

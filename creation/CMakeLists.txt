@@ -1,6 +1,4 @@
 
-add_executable(fromCString create_from_cstring.cpp)
-set_target_properties(fromCString
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "creation::fromCString" COMMAND fromCString)
+add_executable(creation_modern modern_creation.cpp)
+target_link_libraries(creation_modern PRIVATE doctest)
+add_test(NAME "creation::modern" COMMAND creation_modern)
