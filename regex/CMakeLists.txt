@@ -25,6 +25,11 @@ add_executable(regex_lookbehind lookbehind.cpp)
 target_link_libraries(regex_lookbehind PRIVATE doctest)
 add_test(NAME "regex::lookbehind" COMMAND regex_lookbehind)
 
+add_executable(regex_ctre_test ctre_test.cpp)
+target_link_libraries(regex_ctre_test PRIVATE doctest)
+target_include_directories(regex_ctre_test PRIVATE ${PROJECT_SOURCE_DIR}/vendor/compile-time-regular-expressions/single-header)
+add_test(NAME "regex::ctre::test" COMMAND regex_ctre_test)
+
 # //////// test scripts ////////
 if (BASH_PROGRAM)
     add_test(
