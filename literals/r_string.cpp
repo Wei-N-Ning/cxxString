@@ -26,6 +26,10 @@
 //        std::cout << "The files are not equal\n";
 //}
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "doctest/doctest.h"
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -580,10 +584,24 @@ int get_resource_size() {
 
 }
 
-int main() {
+TEST_CASE ("") {
     std::ofstream ofs;
     ofs.open("/tmp/automain.py");
     ofs << resource::get_resource();
     // verified automain.py in Python IDE
-    return 0;
+}
+
+TEST_CASE ("wide character") {
+    std::string s{R"TEXT(学中文)TEXT"};
+    std::cout << s << std::endl;
+
+    using namespace std::string_literals;
+    auto t1{LR"(text)"};  // const wchar_t*
+    auto t2{u8R"(text)"};  // const char *
+    auto t3{uR"(text)"};  // const char16_t *
+    auto t4{UR"(text)"};  // const char32_t *
+    auto t5{LR"(text)"s};  // wstring
+    auto t6{u8R"(text)"s};  // string
+    auto t7{uR"(text)"s};  // u16string
+    auto t8{UR"(text)"};  // u32string
 }
