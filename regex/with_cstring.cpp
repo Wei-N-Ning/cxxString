@@ -7,7 +7,9 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <regex>
+#include <iostream>
 
 TEST_CASE ("search") {
     using namespace std;
@@ -17,4 +19,19 @@ TEST_CASE ("search") {
 
 TEST_CASE ("match") {
     using namespace std;
+    CHECK(regex_match("NWC-AA 1112   NWC-AA 1112     NWC-AA 1112", regex{R"RE([\w\-\s]+)RE"}));
+}
+
+template<typename T>
+class TT;
+
+TEST_CASE ("regex iterator") {
+    using namespace std;
+    const char s[]{"there is a cow"};
+    regex re{R"RE(\w+)RE"};
+    cregex_iterator it{begin(s), end(s), re};
+    cregex_iterator end{};
+    for_each(it, end, [](const auto &m) {
+        cout << m.str() << endl;
+    });
 }
