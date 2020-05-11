@@ -16,3 +16,6 @@ see parse_struct.cpp, and how to recover from parsing-failure
 ## Parse key-value pairs
 
 see parse_kv_pairs.cpp
+
+see also ../regex/lookbehind, parsing a loosely structured text file that
+contains `#property=value` statements

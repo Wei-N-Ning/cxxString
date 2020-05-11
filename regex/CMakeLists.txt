@@ -21,6 +21,9 @@ target_link_libraries(regex_with_cstring doctest ${Boost_LIBRARIES})
 target_include_directories(regex_with_cstring PUBLIC ${Boost_INCLUDE_DIRS})
 add_test(NAME "regex::with-cstring" COMMAND regex_with_cstring)
 
+add_executable(regex_lookbehind lookbehind.cpp)
+target_link_libraries(regex_lookbehind PRIVATE doctest)
+add_test(NAME "regex::lookbehind" COMMAND regex_lookbehind)
 
 # //////// test scripts ////////
 if (BASH_PROGRAM)
