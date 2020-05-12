@@ -4,6 +4,11 @@
 
 // source
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
+
+// inspired by: perlFoo/strings/regex/optionModifiers.pl
+
 // how to set option modifier
 // and what are all the modifiers
 // http://www.cplusplus.com/reference/regex/basic_regex/flags/
@@ -22,8 +27,9 @@
 #include <iostream>
 #include <regex>
 #include <string>
+#include <sstream>
 
-std::regex createRegex(const char* pattern, bool ignoreCase = false ) {
+std::regex createRegex(const std::string &pattern, bool ignoreCase = false ) {
     using namespace std::regex_constants;
     syntax_option_type option(ECMAScript);
     if (ignoreCase) {
@@ -32,22 +38,31 @@ std::regex createRegex(const char* pattern, bool ignoreCase = false ) {
     return std::regex(pattern, option);
 }
 
-int main(int argc, char** argv) {
-    if (argc < 2) {
-        return 1;
-    }
-    std::regex re;
-    if (argc == 2) {
-        re = createRegex(argv[1]);
-    } else if (argc == 3 && *argv[2] == 'i') {
-        re = createRegex(argv[1], true);
-    }
+void process(std::istream &is, const std::string &pattern, bool ignoreCase = false) {
+    std::regex re{createRegex(pattern, ignoreCase)};
     std::string line;
     std::smatch m;
-    while (std::getline(std::cin, line).good()) {
+    while (std::getline(is, line).good()) {
         if (std::regex_match(line, m, re)) {
             std::cout << m[0] << std::endl;
         }
     }
-    return 0;
+}
+
+TEST_CASE ("case sensitive") {
+    std::stringstream ss{R"DOC(
+iddqd
+IDDqd
+idkfa
+)DOC"};
+    process(ss, R"RE(i[d]+.*)RE");
+}
+
+TEST_CASE ("case insensitive") {
+    std::stringstream ss{R"DOC(
+iddqd--
+IDDqd--
+idkfa--
+)DOC"};
+    process(ss, R"RE(i[d]+.*)RE", true);
 }

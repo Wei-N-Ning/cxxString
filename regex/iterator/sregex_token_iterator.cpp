@@ -2,6 +2,9 @@
 // Created by wein on 18/08/18.
 //
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
+
 // source
 // https://en.cppreference.com/w/cpp/regex/regex_token_iterator
 
@@ -20,23 +23,19 @@
 #include <string>
 #include <iostream>
 #include <iterator>
+#include <sstream>
 #include <regex>
 
-int main(int argc, char** argv) {
+#include "absl/strings/match.h"
 
-    // default delimiter
-    std::string delimiter_pattern("\\s+");
-    if (argc == 2) {
-        delimiter_pattern = argv[1];
-    }
+void process(std::istream &is, const std::string &delimiter_pattern = "\\s+") {
     std::regex delimiter(delimiter_pattern);
-
     std::string line;
-    while(std::getline(std::cin, line).good()) {
+    while(std::getline(is, line).good()) {
         if (line.size() < 2) {
             continue;
         }
-        if (line.find('#') == 0) {
+        if (absl::StartsWith(line, "#")) {
             continue;
         }
         std::copy(
@@ -47,6 +46,39 @@ int main(int argc, char** argv) {
         );
     }
     std::cout << std::endl;
+}
 
-    return 0;
+TEST_CASE ("using the default delimiter (whitespace characters)") {
+    std::stringstream ss{R"DOC(
+# comment:
+[/]project(doom)
+[/]scene(e1)
+[/]shot(m1)
+
+# comment:
+[/]element(archvile)
+[/]product(motion)
+
+[/]version(101)
+[/]resource(apm)
+
+)DOC"};
+    process(ss);
+}
+
+TEST_CASE ("using [/] as the delimiter") {
+    std::stringstream ss{R"DOC(
+# comment:
+[/]project(doom)
+[/]scene(e1)
+[/]shot(m1)
+
+# comment:
+[/]element(archvile)
+[/]product(motion)
+
+[/]version(101)
+[/]resource(apm)
+)DOC"};
+    process(ss, R"RE([\/])RE");
 }

@@ -71,7 +71,7 @@ TEST_CASE ("stick in a structure in string") {
     // concat like string
     // can be handy when there is a C-API expecting some array of structs
     // and the data is concatenated on the fly using this "string"
-    bsets += bit{};
+    bsets.push_back(bit{});
 
     for (auto &b : bsets) {
         if (b.direction == bit_direction::output) b.state = !b.state;
