@@ -44,5 +44,6 @@ target_link_libraries(regex_replace_words PRIVATE doctest)
 add_test(NAME "regex::replace-words" COMMAND regex_replace_words)
 
 add_executable(regex_capitalize_words replace/capitalize_words.cpp)
-target_link_libraries(regex_capitalize_words PRIVATE doctest)
+target_link_libraries(regex_capitalize_words PRIVATE doctest ${Boost_LIBRARIES})
+target_include_directories(regex_capitalize_words PRIVATE ${Boost_INCLUDE_DIRS})
 add_test(NAME "regex::capitalize-words" COMMAND regex_capitalize_words)
