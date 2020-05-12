@@ -42,3 +42,7 @@ add_test(NAME "regex::ctre::test" COMMAND regex_ctre_test)
 add_executable(regex_replace_words replace/replace_words.cpp)
 target_link_libraries(regex_replace_words PRIVATE doctest)
 add_test(NAME "regex::replace-words" COMMAND regex_replace_words)
+
+add_executable(regex_capitalize_words replace/capitalize_words.cpp)
+target_link_libraries(regex_capitalize_words PRIVATE doctest)
+add_test(NAME "regex::capitalize-words" COMMAND regex_capitalize_words)
