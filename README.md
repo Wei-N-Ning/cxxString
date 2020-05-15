@@ -87,3 +87,9 @@ see: <https://stackoverflow.com/questions/13604090/which-boost-libraries-are-hea
 > (for example for boost_system-vc141-mt-x64-1_66.lib it would be 'system')
 
 reference: <https://cmake.org/cmake/help/v3.15/module/FindBoost.html>
+
+## How to use abseil library in CMake
+
+see: <https://abseil.io/docs/cpp/tools/cmake-installs>
+
+
