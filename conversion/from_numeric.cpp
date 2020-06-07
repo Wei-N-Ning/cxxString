@@ -95,9 +95,9 @@ TEST_CASE ("boost::lexical_cast<string>") {
     using namespace std::string_literals;
     // prefer std::to_string() to boost::lexical_cast<>
     auto s = lexical_cast<std::string>(0x12321);
-    CHECK_EQ("0x12321"s, s);
+    CHECK_EQ("74529"s, s);
     auto s2 = std::to_string(0x12321);
     auto s3 = std::to_string(12321);
-    CHECK_EQ("0x12321"s, s2);
+    CHECK_EQ("74529"s, s2);
     CHECK_EQ("12321"s, s3);
 }
