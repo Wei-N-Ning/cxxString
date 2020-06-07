@@ -14,3 +14,8 @@ add_test(NAME "parsing::key-value-pairs" COMMAND parsing_key_value_pairs)
 add_executable(parsing_column_separated_text read_column_separated_text.cpp)
 target_link_libraries(parsing_column_separated_text PRIVATE doctest)
 add_test(NAME "parsing::read-column-separated-text" COMMAND parsing_column_separated_text)
+
+add_executable(parsing_boost_spirit boost_spirit.cpp)
+target_link_libraries(parsing_boost_spirit PRIVATE doctest)
+target_include_directories(parsing_boost_spirit PRIVATE ${Boost_INCLUDE_DIRS})
+add_test(NAME "parsing::boost-spirit" COMMAND parsing_boost_spirit)

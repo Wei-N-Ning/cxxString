@@ -11,6 +11,8 @@
 
 // boost c++ app dev P/59 introduces boost's lexical cast which is superior to both
 // STL's istream >> and C's strtol()
+// to convert (or more precisely, to deserialize) to a custom class/struct, I need to
+// define the >>operator(), which is invoked by lexical_cast<T>()
 
 TEST_CASE("base10 conversion") {
     assert(1337 == std::stoi("1337"));
