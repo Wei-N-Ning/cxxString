@@ -25,6 +25,7 @@ struct Date {
     unsigned short day{0};
 };
 
+// take 1 does not check the number of digits
 std::optional<Date> parse_s_take1(const std::string &s) {
     using boost::spirit::qi::_1;
     using boost::spirit::qi::ushort_;
@@ -58,6 +59,7 @@ std::optional<Date> parse_s_take1(const std::string &s) {
     return success ? std::optional<Date>{res} : std::optional<Date>{};
 }
 
+// check the number of digits via template parameters
 std::optional<Date> parse_s(const std::string &s) {
     using boost::spirit::qi::uint_parser;
     using boost::spirit::qi::char_;
@@ -83,7 +85,7 @@ std::optional<Date> parse_s(const std::string &s) {
     return success ? std::optional<Date>{res} : std::optional<Date>{};
 }
 
-TEST_CASE ("") {
+TEST_CASE ("parse date string") {
     using namespace std::string_literals;
     auto o1 = parse_s("1993-06-12"s);
     CHECK(o1.has_value());
