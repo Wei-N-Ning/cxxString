@@ -25,7 +25,7 @@ struct Date {
     unsigned short day{0};
 };
 
-std::optional<Date> parse_s(const std::string &s) {
+std::optional<Date> parse_s_take1(const std::string &s) {
     using boost::spirit::qi::_1;
     using boost::spirit::qi::ushort_;
     using boost::spirit::qi::char_;
@@ -33,7 +33,7 @@ std::optional<Date> parse_s(const std::string &s) {
 
     Date res;
     const char *first = s.data();
-    const char *last = first + s.size();
+    const char* const last = first + s.size();
     bool success = boost::spirit::qi::parse(
         first, last,
         ushort_[ref(res.year) = _1] >> char_('-')
@@ -47,6 +47,39 @@ std::optional<Date> parse_s(const std::string &s) {
      *      <*> char '-'
      *      <*> twice digit
      * */
+    // c++ boost app dev P/75
+    // the parse() function returns true on success.
+    // if we want to make sure that the whole string was successfully parsed
+    // we need to check for the parser's return value and equality of the
+    // input iterators
+    // semantic actions in Boost.Spirit are written inside [] and they
+    // can be written using function pointers, function objects, boost::bind
+    // std::bind or C++11 lambda functions
+    return success ? std::optional<Date>{res} : std::optional<Date>{};
+}
+
+std::optional<Date> parse_s(const std::string &s) {
+    using boost::spirit::qi::uint_parser;
+    using boost::spirit::qi::char_;
+    using boost::spirit::qi::_1;
+    using boost::phoenix::ref;
+
+    // use unsigned short as output type, require Radix 10, and from 2
+    // to 2 digits
+    uint_parser<unsigned short, 10, 2, 2> u2_;
+    uint_parser<unsigned short, 10, 4, 4> u4_;
+
+    Date res;
+    const char *first = s.data();
+    const char* const end = first + s.size();
+    bool success = boost::spirit::qi::parse(
+        first, end,
+        u4_[ref(res.year) = _1]
+        >> char_('-')
+        >> u2_[ref(res.month) = _1]
+        >> char_('-')
+        >> u2_[ref(res.day) = _1]
+    );
     return success ? std::optional<Date>{res} : std::optional<Date>{};
 }
 
