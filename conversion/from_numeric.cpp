@@ -12,6 +12,11 @@
 #include <cstdio>
 #include <cstring>
 #include <cassert>
+#include <boost/lexical_cast.hpp>
+
+// source: boost c++ app dev P/62
+// I can also use boost::lexical_cast<string> to save the boilerplate code
+// HOWEVER, clang-tidy suggests std::to_string()!
 
 TEST_CASE ("sprintf caveat") {
     char smallBuf[5] = {0, 0, 0, 0, 0};
@@ -83,4 +88,16 @@ TEST_CASE ("hexstring to 8-bit ints") {
     CHECK_EQ(vector<unsigned char>{0xBA, 0xAD}, hexstring_to_vec("BAAD"));
     CHECK_EQ(vector<unsigned char>{0x0B, 0xAD, 0xF0, 0x0D}, hexstring_to_vec("BADF00D"));
     CHECK_EQ(vector<unsigned char>{1, 2, 3, 4, 5, 6}, hexstring_to_vec("010203040506"));
+}
+
+TEST_CASE ("boost::lexical_cast<string>") {
+    using namespace boost;
+    using namespace std::string_literals;
+    // prefer std::to_string() to boost::lexical_cast<>
+    auto s = lexical_cast<std::string>(0x12321);
+    CHECK_EQ("0x12321"s, s);
+    auto s2 = std::to_string(0x12321);
+    auto s3 = std::to_string(12321);
+    CHECK_EQ("0x12321"s, s2);
+    CHECK_EQ("12321"s, s3);
 }
