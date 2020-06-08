@@ -141,6 +141,10 @@ struct DateTime {
     }
 };
 
+// c++ boost app dev P/80
+// "rules" erases the type and allows you to write parsers in source files and export
+// them in headers
+// to optimize, do not use type-erasure
 std::optional<DateTime> parse_dt(const std::string &s) {
     using boost::spirit::qi::_1;
     using boost::spirit::qi::_2;
