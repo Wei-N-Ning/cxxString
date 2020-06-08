@@ -20,3 +20,11 @@ add_test(NAME "conversion::from-time" COMMAND conversion_from_time)
 add_executable(conversion_to_readable to_readable.cpp)
 target_link_libraries(conversion_to_readable PRIVATE doctest)
 add_test(NAME "conversion::to-readable" COMMAND conversion_to_readable)
+
+add_executable(conversion_lower_upper_cases lower_upper_cases.cpp)
+target_link_libraries(conversion_lower_upper_cases PRIVATE doctest)
+target_include_directories(conversion_lower_upper_cases PRIVATE ${Boost_INCLUDE_DIRS})
+add_test(NAME "conversion::lower-upper-cases" COMMAND conversion_lower_upper_cases)
+
+
+
