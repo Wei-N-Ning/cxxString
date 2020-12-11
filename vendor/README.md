@@ -9,3 +9,5 @@ boost: 1.72.0
 ctre (compile-time-regular-expression): latest
 
 abseil (google's open source C++ library): latest
+
+auto_timer: copied from cxx performance project
