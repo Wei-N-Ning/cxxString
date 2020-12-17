@@ -16,11 +16,12 @@
 // effective use of std::distance and istream_iterator
 // wc is 2x faster than this version
 
-TEST_CASE ("") {
+TEST_CASE( "demo word count" )
+{
     using namespace std;
-    string text_file{BOOST_PP_STRINGIZE(TEXT_FILE)};
-    ifstream ifs{text_file};
-    auto c = distance(istream_iterator<string>{ifs}, {});
+    string text_file{ BOOST_PP_STRINGIZE(TEXT_FILE) };
+    ifstream ifs{ text_file };
+    auto c = distance( istream_iterator< string >{ ifs }, {} );
     // for reference,
     // wc resources/text
     // 121 1657 9880 resources/text
