@@ -18,6 +18,8 @@
 //
 
 // c++ 17 in detail P/151
+// NOTE: see P/171 on fast std::search() - I can use boyer_moore searcher,
+// instead of std::find_first_of() to make it even faster
 
 std::vector< std::string_view > splitSV( std::string_view strv, std::string_view delim )
 {
@@ -26,8 +28,10 @@ std::vector< std::string_view > splitSV( std::string_view strv, std::string_view
     auto begin = strv.begin();
     while ( first != strv.end() )
     {
-        const auto second = std::find_first_of(
-            first, std::cend( strv ), std::cbegin( delim ), std::cend( delim ) );
+        const auto second = std::search(
+            first,
+            std::cend( strv ),
+            std::boyer_moore_horspool_searcher( std::cbegin( delim ), std::cend( delim ) ) );
         if ( first != second )
         {
             oxs.emplace_back(

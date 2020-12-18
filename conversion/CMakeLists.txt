@@ -26,5 +26,7 @@ target_link_libraries(conversion_lower_upper_cases PRIVATE doctest)
 target_include_directories(conversion_lower_upper_cases PRIVATE ${Boost_INCLUDE_DIRS})
 add_test(NAME "conversion::lower-upper-cases" COMMAND conversion_lower_upper_cases)
 
-
+add_executable(conversion_parse_to_numeric parse_to_numeric.cpp)
+target_link_libraries(conversion_parse_to_numeric PRIVATE doctest)
+add_test(NAME "conversion::parse_to_numeric_types" COMMAND conversion_parse_to_numeric)
 

@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
-set(CMAKE_C_COMPILER gcc-9)
-set(CMAKE_CXX_COMPILER g++-9)
+set(CMAKE_C_COMPILER gcc-10)
+set(CMAKE_CXX_COMPILER g++-10)
 
 project(C++String LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(Boost_NO_SYSTEM_PATHS TRUE)
