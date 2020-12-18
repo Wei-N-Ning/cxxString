@@ -20,6 +20,10 @@ TEST_CASE( "find substr" )
 
 // c++ 17 in detail P/170
 // c++17 adds more search algorithms
+// std::search() works with non-character element type (such as DNA type)
+// see P/175
+// to satisfy the searcher, a custom type needs to support std::hash interface
+// and also define operator==
 
 TEST_CASE( "boyer moore searcher" )
 {
