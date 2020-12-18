@@ -5,6 +5,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
 
+// split by a substr instead of a single character
+
+// see also fast_split that completes this "python style splitting":
+// xs = s.split('...')
+
 TEST_CASE( "python style string.split('...')" )
 {
     std::string sut{

@@ -12,6 +12,10 @@
 // C++ 17 in depth P/133
 //
 
+// C++ 17 in depth P/152
+// always remember to use string_view::size() when you build a string from
+// string_view. The size() method properly marks the end of string_view
+
 TEST_CASE( "create string view from const char *" )
 {
     /**
@@ -27,4 +31,18 @@ TEST_CASE( "create string view from const char *" )
     std::string_view s{ "iddqd" };
     auto n = std::count( s.begin(), s.end(), 'd' );
     CHECK_EQ( n, 3 );
+}
+
+// c++ 17 in detail P/148
+//
+
+TEST_CASE( "string view with constexpr" )
+{
+    using namespace std::literals;
+
+    constexpr auto strv = "there is a cow"sv;
+    constexpr auto part = strv.substr( 6, 2 );
+    static_assert( part == "is"sv );
+
+    // there is no runtime asm code generated!
 }
