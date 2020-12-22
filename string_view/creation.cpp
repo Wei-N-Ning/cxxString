@@ -46,3 +46,12 @@ TEST_CASE( "string view with constexpr" )
 
     // there is no runtime asm code generated!
 }
+
+// c++ 17 the complete guide P/178
+// there are two major applications of string-view
+// - you might have allocated or mapped data with character sequences or strings and
+//   want to use this data without allocating more mem; typical examples are:
+//    - memory mapped files
+//    - strings in large texts
+// - you want to improve perf for functions/operations that receive strings just
+//   to directly process them read-only, not needing a trailing null terminator
