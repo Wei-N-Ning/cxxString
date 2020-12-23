@@ -2,9 +2,9 @@ add_executable(search_endswith endswith.cpp)
 target_link_libraries(search_endswith doctest)
 add_test(NAME "search::endswith" COMMAND search_endswith)
 
-add_executable(search_find_substr find_substr.cpp)
-target_link_libraries(search_find_substr doctest)
-add_test(NAME "search::find-substr" COMMAND search_find_substr)
+add_executable(search_find_substr_searcher find_substr_searcher.cpp)
+target_link_libraries(search_find_substr_searcher PRIVATE doctest)
+add_test(NAME "search::find-substr-with-searcher" COMMAND search_find_substr_searcher)
 
 add_executable(search_palindrome palindrome.cpp)
 target_link_libraries(search_palindrome doctest)
