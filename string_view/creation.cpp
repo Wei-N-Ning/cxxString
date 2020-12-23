@@ -55,3 +55,29 @@ TEST_CASE( "string view with constexpr" )
 //    - strings in large texts
 // - you want to improve perf for functions/operations that receive strings just
 //   to directly process them read-only, not needing a trailing null terminator
+
+// c++ 17 the complete guide P/181
+// initialize a string view from a prvalue returned from a function is BADDDD
+// it does neither copy nor extend the lifetime of that return value
+
+// c++ 17 the complete guide P/184
+// read the long DON'Ts with string_view
+
+TEST_CASE( "initialize a string view having the null terminator" )
+{
+    // c++ 17 the complete guide P/186
+    // specify the sv length
+    std::string_view sv{ "e1m1 ", 6 };
+    CHECK_EQ( sv[ 5 ], '\0' );
+}
+
+TEST_CASE( "hash values for strings and string_views are equal" )
+{
+    // c++ 17 the complete guide P/187
+    using namespace std::literals;
+    auto s{ "iddqd"s };
+    auto sv{ "iddqd"sv };
+    CHECK_EQ( std::hash< std::string >{}( s ),
+              //
+              std::hash< std::string_view >{}( sv ) );
+}
