@@ -18,15 +18,19 @@
 
 // release build:
 // compare repeat() with std::string(n, ch) constructor
-//    repeat()          :       593 micro (10 runs, fastest: 521, slowest: 957)
-//    std::string(n, ch):        25 micro (10 runs, fastest: 25, slowest: 26) speedup: 22.871
-//    repeat with oss   :      3883 micro (10 runs, fastest: 2075, slowest: 5537) speedup: 0.152761
+// repeat()                    :       123 micro (10 runs, fastest: 107, slowest: 202)
+// std::string(n, ch)          :         6 micro (10 runs, fastest: 6, slowest: 6) speedup: 18.4593
+// repeat with oss             :      1164 micro (10 runs, fastest: 1100, slowest: 1192) speedup:
+// 0.105656 repeat with const string ref:       318 micro (10 runs, fastest: 309, slowest: 356)
+// speedup: 0.38608
+
+// the winners are string_view (1st) and const string ref (2nd)
 
 // using output string-stream is slower than the string_view version
 
 std::string repeat( std::string_view pattern, size_t n )
 {
-    std::string o( pattern.size() * n, '\0' );
+    std::string o( std::size( pattern ) * n, '\0' );
     for ( ; n > 0; --n )
     {
         std::copy( std::execution::unseq,
@@ -37,11 +41,24 @@ std::string repeat( std::string_view pattern, size_t n )
     return o;
 }
 
-std::string repeat_oss( const std::string &pattern, size_t n )
+std::string repeat_oss( const std::string& pattern, size_t n )
 {
     std::ostringstream oss;
     std::fill_n( std::execution::unseq, std::ostream_iterator< std::string >{ oss }, n, pattern );
     return oss.str();
+}
+
+std::string repeat_buf( const std::string& pattern, size_t n )
+{
+    std::string o( std::size( pattern ) * n, '\0' );
+    for ( ; n > 0; --n )
+    {
+        std::copy( std::execution::unseq,
+                   std::cbegin( pattern ),
+                   std::cend( pattern ),
+                   std::next( std::begin( o ), std::size( pattern ) * ( n - 1 ) ) );
+    }
+    return o;
 }
 
 TEST_CASE( "repeat pattern n times" )
@@ -71,8 +88,13 @@ TEST_CASE( "compare repeat with string constructor" )
                       std::string expected( 4 * sz, 'x' );
                       assert( expected.size() == 4 * sz );
                   } )
-        .measure( "repeat with oss", [ sz ]() {
-            auto s = repeat_oss( "xxxx", sz );
+        .measure( "repeat with oss",
+                  [ sz ]() {
+                      auto s = repeat_oss( "xxxx", sz );
+                      assert( s.size() == 4 * sz );
+                  } )
+        .measure( "repeat with const string ref", [ sz ]() {
+            auto s = repeat_buf( "xxxx", sz );
             assert( s.size() == 4 * sz );
         } );
 }
