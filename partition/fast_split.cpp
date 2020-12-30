@@ -182,7 +182,7 @@ TEST_CASE( "split to vector and split iterator perf test" )
     // using the iterator;
     // the vector has the advantage of SIMD (via unseq) but iterator does not as it is a forward
     // iterator.
-    
+
     std::string text{R"(there is a cow  there is a cow   there is a cow
 there is a cow  there is a cow   there is a cow
 there is a cow  there is a cow   there is a cow
