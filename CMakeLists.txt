@@ -15,6 +15,7 @@ find_package(Boost 1.72.0 REQUIRED COMPONENTS regex)
 
 add_subdirectory(vendor/doctest)
 add_subdirectory(vendor/abseil-cpp)
+add_subdirectory(vendor/autotimer)
 enable_testing()
 
 # source:

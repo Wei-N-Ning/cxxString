@@ -33,5 +33,5 @@ target_link_libraries(partition_python_style_split PRIVATE doctest)
 add_test(NAME "partition::python-style-split" COMMAND partition_python_style_split)
 
 add_executable(partition_fast_split fast_split.cpp)
-target_link_libraries(partition_fast_split PRIVATE doctest)
+target_link_libraries(partition_fast_split PRIVATE doctest autotimer)
 add_test(NAME "partition::fast_split" COMMAND partition_fast_split)

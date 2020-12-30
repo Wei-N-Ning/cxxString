@@ -10,4 +10,5 @@ ctre (compile-time-regular-expression): latest
 
 abseil (google's open source C++ library): latest
 
-auto_timer: copied from cxx performance project
+autotmer: <https://github.com/Wei-N-Ning/autotimer>
+
