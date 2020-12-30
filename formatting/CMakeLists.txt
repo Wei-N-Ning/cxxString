@@ -7,3 +7,7 @@ add_executable(formatting_printf printf.cpp)
 target_link_libraries(formatting_printf PRIVATE doctest)
 target_include_directories(formatting_printf PRIVATE ${Boost_INCLUDE_DIRS})
 add_test(NAME "formatting::printf" COMMAND formatting_printf)
+
+add_executable(formatting_cxx_format_function cxx20_format.cpp)
+target_link_libraries(formatting_cxx_format_function PRIVATE doctest autotimer)
+add_test(NAME "formatting::cxx20_format_function" COMMAND formatting_cxx_format_function)
