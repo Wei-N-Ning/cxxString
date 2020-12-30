@@ -122,9 +122,11 @@ public:
             // post completion
             return *this;
         }
-        if ( second == haystack.end() )
+        if ( first == haystack.end() || second == haystack.end() )
         {
-            // completion
+            // completion; when there is no trailing delim pattern, check for second ==
+            // haystack.end(); otherwise I should check for first == haystack.end() (the second
+            // pointer is not moved)
             haystack = {};
             delim = {};
             begin = {};
@@ -142,6 +144,7 @@ public:
             if ( first == second )
             {
                 // if there are multiple delimiter patterns, this will skip all of them
+                curr = {};
                 first = std::next( second );
                 continue;
             }
@@ -150,8 +153,15 @@ public:
             // body of if-statement to mark the all positions invalid
             curr = haystack.substr( std::distance( begin, first ), std::distance( first, second ) );
             first = std::next( second );
-            break;
+            return *this;
         }
+
+        // if I get here, it means it reaches completion
+        haystack = {};
+        delim = {};
+        begin = {};
+        first = {};
+        second = {};
         return *this;
     }
 
@@ -167,23 +177,39 @@ private:
 
 TEST_CASE( "split iterator" )
 {
-    std::string haystack{ "there is  a cow  133" };
-    std::for_each( SplitIterator{ haystack, " " }, SplitIterator{}, []( auto sv ) {
-        std::cout << '[' << sv << ']' << '\n';
-    } );
+    // with trailing delim
+    {
+        std::string haystack{ "there is  a cow  133  " };
+        auto xs = splitSV( haystack, " " );
+        CHECK_EQ( xs.size(), 5 );
 
-    auto xs = splitSV( haystack, " " );
-    std::for_each( xs.begin(), xs.end(), []( auto sv ) { std::cout << '<' << sv << '>' << '\n'; } );
+        std::vector< std::string_view > ys;
+        std::copy( SplitIterator{ haystack, " " }, SplitIterator{}, std::back_inserter( ys ) );
+        CHECK_EQ( xs, ys );
+    }
+    // without trailing delim
+    {
+        std::string haystack{ "there is  a cow  133" };
+        auto xs = splitSV( haystack, " " );
+        CHECK_EQ( xs.size(), 5 );
+
+        std::vector< std::string_view > ys;
+        std::copy( SplitIterator{ haystack, " " }, SplitIterator{}, std::back_inserter( ys ) );
+        CHECK_EQ( xs, ys );
+    }
 }
 
 TEST_CASE( "split to vector and split iterator perf test" )
 {
-    // when the number of words is small (<100), using vector of string_view is almost as fast as
+    // when the number of words is small (<1000), using vector of string_view is almost as fast as
     // using the iterator;
     // the vector has the advantage of SIMD (via unseq) but iterator does not as it is a forward
     // iterator.
 
-    std::string text{R"(there is a cow  there is a cow   there is a cow
+    // see the next example that uses a large string object (100k characters)
+    // the iterator version is slightly faster than the vector version (almost negligible)
+
+    std::string text{ R"(there is a cow  there is a cow   there is a cow
 there is a cow  there is a cow   there is a cow
 there is a cow  there is a cow   there is a cow
 there is a cow  there is a cow   there is a cow
@@ -210,5 +236,42 @@ there is a cow  there is a cow   there is a cow
             [ &text ]() {
                 auto sz = std::distance( SplitIterator{ text, " " }, SplitIterator{} );
                 assert( sz == 89 );
+            } );
+}
+
+// see cxxString/aggregate/repeat.cpp
+std::string repeat( std::string_view pattern, size_t n )
+{
+    std::string o( pattern.size() * n, '\0' );
+    for ( ; n > 0; --n )
+    {
+        std::copy( std::execution::unseq,
+                   std::cbegin( pattern ),
+                   std::cend( pattern ),
+                   std::next( std::begin( o ), std::size( pattern ) * ( n - 1 ) ) );
+    }
+    return o;
+}
+
+TEST_CASE( "split to vector vs split iterator performance testing with large string object" )
+{
+    auto text = repeat( "there is a cow  there is a cow   there is a cow ", 10000 );
+    AutoTimer::Builder()
+        .withLabel( "compare split to vector and split iterator using a large string object" )
+        .measure(
+            //
+            "split to vector",
+            //
+            [ &text ]() {
+                auto xs = splitSV( text, " " );
+                assert( xs.size() == 120000 );
+            } )
+        .measure(
+            //
+            "split iterator",
+            //
+            [ &text ]() {
+                auto sz = std::distance( SplitIterator{ text, " " }, SplitIterator{} );
+                assert( sz == 120000 );
             } );
 }
