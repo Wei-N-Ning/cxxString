@@ -5,7 +5,7 @@ add_test(NAME "regex::iterator::sregex_token_iterator" COMMAND regex_sregex_toke
 
 add_executable(regex_option_modifiers modifiers/option_modifiers.cpp)
 target_link_libraries(regex_option_modifiers PRIVATE doctest)
-add_test(NAME regex::modifiers::option-modifiers"" COMMAND regex_option_modifiers)
+add_test(NAME "regex::modifiers::option-modifiers" COMMAND regex_option_modifiers)
 
 add_executable(regex_iterator iterator/regex_iterator.cpp)
 target_link_libraries(regex_iterator PRIVATE doctest)
